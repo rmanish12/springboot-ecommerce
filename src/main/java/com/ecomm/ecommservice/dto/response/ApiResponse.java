@@ -56,6 +56,15 @@ public class ApiResponse<T> {
                 .build();
     }
 
+    public static ApiResponse<Void> successWithMessage(String message, HttpStatus statusCode) {
+        return ApiResponse.<Void>builder()
+                .status(SUCCESS)
+                .statusCode(statusCode)
+                .responseTime(ZonedDateTime.now(ZoneOffset.UTC))
+                .message(message)
+                .build();
+    }
+
     public static <T> ApiResponse<T> error(ErrorResponse errorResponse) {
         return ApiResponse.<T>builder()
                 .status(FAILURE)

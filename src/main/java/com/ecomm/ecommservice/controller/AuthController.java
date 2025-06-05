@@ -2,12 +2,13 @@ package com.ecomm.ecommservice.controller;
 
 import com.ecomm.ecommservice.dto.request.RegisterUserRequest;
 import com.ecomm.ecommservice.dto.response.ApiResponse;
-import com.ecomm.ecommservice.entity.UserInfo;
+import com.ecomm.ecommservice.dto.response.UserProfileDto;
 import com.ecomm.ecommservice.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,12 +25,12 @@ public class AuthController {
     @PostMapping("/register")
     public ApiResponse<Void> registerUser(@Valid @RequestBody RegisterUserRequest registerUserRequest) {
         userInfoService.registerUser(registerUserRequest);
-        return ApiResponse.successWithMessage("User has been created successfully");
+        return ApiResponse.successWithMessage("User has been created successfully", HttpStatus.CREATED);
     }
 
     @Operation(summary = "Getting user details by ID")
     @GetMapping("/{id}")
-    public ApiResponse<UserInfo> getUserDetails(@PathVariable("id") UUID id) {
+    public ApiResponse<UserProfileDto> getUserDetails(@PathVariable("id") UUID id) {
         return ApiResponse.success(userInfoService.getUserDetails(id));
     }
 }

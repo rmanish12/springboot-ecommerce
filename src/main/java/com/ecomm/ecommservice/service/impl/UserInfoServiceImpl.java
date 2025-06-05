@@ -1,10 +1,12 @@
 package com.ecomm.ecommservice.service.impl;
 
 import com.ecomm.ecommservice.dto.request.RegisterUserRequest;
+import com.ecomm.ecommservice.dto.response.UserProfileDto;
 import com.ecomm.ecommservice.entity.UserInfo;
 import com.ecomm.ecommservice.entity.UserProfile;
 import com.ecomm.ecommservice.exception.ConflictException;
 import com.ecomm.ecommservice.exception.NotFoundException;
+import com.ecomm.ecommservice.mapper.UserProfileDtoMapper;
 import com.ecomm.ecommservice.repository.UserProfileRepository;
 import com.ecomm.ecommservice.repository.UserInfoRepository;
 import com.ecomm.ecommservice.service.UserInfoService;
@@ -21,6 +23,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     private UserInfoRepository userInfoRepository;
     private UserProfileRepository userProfileRepository;
+    private UserProfileDtoMapper userProfileDtoMapper;
 
     @Override
     public void registerUser(RegisterUserRequest registerUserRequest) {
@@ -50,7 +53,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfo getUserDetails(UUID userId) {
-        return userInfoRepository.findById(userId).orElseThrow(() -> new NotFoundException("User", "userId", userId));
+    public UserProfileDto getUserDetails(UUID userId) {
+        UserInfo userInfo = userInfoRepository.findById(userId).orElseThrow(() -> new NotFoundException("User", "userId", userId));
+        return userProfileDtoMapper.toDto(userInfo);
     }
 }
