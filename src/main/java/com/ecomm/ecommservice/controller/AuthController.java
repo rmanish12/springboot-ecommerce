@@ -1,7 +1,9 @@
 package com.ecomm.ecommservice.controller;
 
+import com.ecomm.ecommservice.dto.request.LoginUserDto;
 import com.ecomm.ecommservice.dto.request.RegisterUserRequest;
 import com.ecomm.ecommservice.dto.response.ApiResponse;
+import com.ecomm.ecommservice.dto.response.TokenDto;
 import com.ecomm.ecommservice.dto.response.UserProfileDto;
 import com.ecomm.ecommservice.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,5 +34,11 @@ public class AuthController {
     @GetMapping("/{id}")
     public ApiResponse<UserProfileDto> getUserDetails(@PathVariable("id") UUID id) {
         return ApiResponse.success(userInfoService.getUserDetails(id));
+    }
+
+    @Operation(summary = "Login User")
+    @PostMapping("/login")
+    public ApiResponse<TokenDto> loginUser(@Valid @RequestBody LoginUserDto loginUserDto) {
+        return ApiResponse.success(userInfoService.loginUser(loginUserDto));
     }
 }

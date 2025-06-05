@@ -1,6 +1,5 @@
 package com.ecomm.ecommservice.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-import java.util.Map;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +20,7 @@ public class ErrorResponse {
     private HttpStatus statusCode;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, String> errors;
+    private List<String> errors;
 
     public static ErrorResponse buildErrorResponseWithMessage (String message, HttpStatus statusCode) {
         return ErrorResponse.builder()
@@ -30,7 +29,7 @@ public class ErrorResponse {
                 .build();
     }
 
-    public static ErrorResponse buildErrorResponseWithErrors (Map<String, String> errors, HttpStatus statusCode) {
+    public static ErrorResponse buildErrorResponseWithErrors (List<String> errors, HttpStatus statusCode) {
         return ErrorResponse.builder()
                 .errors(errors)
                 .statusCode(statusCode)

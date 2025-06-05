@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.Map;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -34,7 +34,7 @@ public class ApiResponse<T> {
     private String error;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, String> errors;
+    private List<String> errors;
 
     private ZonedDateTime responseTime;
 
