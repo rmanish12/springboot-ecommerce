@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF, not needed for stateless JWT
                 .authorizeHttpRequests(request ->
                     request
-                            .requestMatchers("/auth/register", "/auth/login")
+                            .requestMatchers("/auth/register", "/auth/login", "/v3/api-docs*/**", "/swagger-ui/**")
                             .permitAll()
                             .anyRequest()
                             .authenticated()
