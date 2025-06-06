@@ -1,6 +1,7 @@
 package com.ecomm.ecommservice.service;
 
 import com.ecomm.ecommservice.dto.request.UpdateUserRoleRequestDto;
+import com.ecomm.ecommservice.dto.response.UserProfileDto;
 import com.ecomm.ecommservice.entity.Role;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface UserService {
     void addRoleToUser(UUID userId, UpdateUserRoleRequestDto updateUserRoleRequestDto);
     List<Role> getUserRoles(UUID userId);
     Set<String> getUserPermissions(UUID userId);
+
+    UserProfileDto getUserProfile();
 }

@@ -3,7 +3,6 @@ package com.ecomm.ecommservice.entity;
 import com.ecomm.ecommservice.util.encryption.EncryptField;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfo {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

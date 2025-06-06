@@ -1,6 +1,6 @@
 package com.ecomm.ecommservice.repository;
 
-import com.ecomm.ecommservice.entity.UserInfo;
+import com.ecomm.ecommservice.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UserInfoRepository extends JpaRepository<UserInfo, UUID> {
-    Optional<UserInfo> findUserInfoByEmail(String email);
+public interface UserRepository extends JpaRepository<User, UUID> {
+    Optional<User> findByEmail(String email);
 }

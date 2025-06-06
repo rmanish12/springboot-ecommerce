@@ -2,10 +2,12 @@ package com.ecomm.ecommservice.controller;
 
 import com.ecomm.ecommservice.dto.request.UpdateUserRoleRequestDto;
 import com.ecomm.ecommservice.dto.response.ApiResponse;
+import com.ecomm.ecommservice.dto.response.UserProfileDto;
 import com.ecomm.ecommservice.entity.Role;
 import com.ecomm.ecommservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,12 @@ import java.util.UUID;
 public class UserController {
 
     private UserService userService;
+
+    @Operation(summary = "Get User Profile")
+    @GetMapping("/profile")
+    public ApiResponse<UserProfileDto> getUserProfile() {
+        return ApiResponse.success(userService.getUserProfile());
+    }
 
     @Operation(summary = "Update User Roles")
     @PutMapping("/{id}/roles")

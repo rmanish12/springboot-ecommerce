@@ -7,7 +7,7 @@ import com.ecomm.ecommservice.dto.response.UserProfileDto;
 
 import java.util.UUID;
 
-public interface UserInfoService {
+public interface AuthService {
     void registerUser(RegisterUserRequest registerUserRequest);
     UserProfileDto getUserDetails(UUID userId);
     TokenDto loginUser(LoginUserDto loginUserDto);

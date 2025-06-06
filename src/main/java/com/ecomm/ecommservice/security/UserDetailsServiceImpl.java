@@ -1,7 +1,8 @@
 package com.ecomm.ecommservice.security;
 
-import com.ecomm.ecommservice.entity.UserInfo;
-import com.ecomm.ecommservice.repository.UserInfoRepository;
+import com.ecomm.ecommservice.entity.User;
+import com.ecomm.ecommservice.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,11 +15,12 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserInfoRepository userInfoRepository;
+    private UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserInfo> userDetails = userInfoRepository.findUserInfoByEmail(username);
+        Optional<User> userDetails = userRepository.findByEmail(username);
 
         return userDetails
                 .map(UserInfoSecurityDetails::new)

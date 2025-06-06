@@ -4,7 +4,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +17,13 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
+@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${spring.app.jwtSecret}")
     private String JWT_SECRET;
+
+    private final RedisTemplate<String,String> redisTemplate;
 
     public String generateToken(String email) {
         Map<String, Object> claims = new HashMap<>();
@@ -35,8 +40,8 @@ public class JwtService {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         String userName = extractUserName(token);
-
-        return userName.equals(userDetails.getUsername()) && !isTokenExpired(token);
+        String redisValue = redisTemplate.opsForValue().get(token);
+        return redisValue !=null && userName.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
     private String createToken(String email, Map<String, Object> claims) {

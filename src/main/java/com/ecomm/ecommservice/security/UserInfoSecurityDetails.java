@@ -1,6 +1,6 @@
 package com.ecomm.ecommservice.security;
 
-import com.ecomm.ecommservice.entity.UserInfo;
+import com.ecomm.ecommservice.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class UserInfoSecurityDetails implements UserDetails {
     private List<GrantedAuthority> authorities;
     private boolean isAccountNonLocked;
 
-    public UserInfoSecurityDetails(UserInfo userInfo) {
+    public UserInfoSecurityDetails(User userInfo) {
         this.username = userInfo.getEmail();
         this.password = userInfo.getPassword();
         this.isAccountNonLocked = userInfo.isActive();
